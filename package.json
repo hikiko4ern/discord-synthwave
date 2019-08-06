@@ -1,0 +1,27 @@
+{
+  "name": "discord-synthwave",
+  "version": "1.0.0",
+  "description": "SynthWave '84 theme for Discord code",
+  "main": "build.js",
+  "repository": "git@github.com:hikiko4ern/discord-synthwave.git",
+  "author": "hikiko4ern <hikiko4ern@gmail.com>",
+  "license": "AGPL-v3.0",
+  "private": true,
+  "scripts": {
+    "build": "node .",
+    "prettify": "prettier --config .prettierrc --write 'src/*'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-s prettify build"
+    }
+  },
+  "dependencies": {
+    "sass": "^1.22.9"
+  },
+  "devDependencies": {
+    "husky": "^3.0.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2"
+  }
+}
