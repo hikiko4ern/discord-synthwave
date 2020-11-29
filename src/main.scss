@@ -1,0 +1,192 @@
+@import './vars';
+@import './mixins';
+
+/* ------------------------------ [hljs] block ------------------------------ */
+
+.hljs {
+  border-radius: 6px;
+  color: $color;
+  background: $background;
+
+  &::before {
+    opacity: 0.3;
+    transition: 0.2s opacity;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------ [hljs] parts ------------------------------ */
+
+.hljs-keyword {
+  color: $keyword;
+}
+
+.hljs-comment {
+  color: $comment;
+  font-style: italic;
+}
+
+.hljs-params {
+  color: $params;
+  font-style: italic;
+}
+
+.hljs-literal {
+  color: $literal;
+}
+
+.hljs-class {
+  .hljs-title,
+  &.hljs-title {
+    color: $class;
+  }
+}
+
+.hljs-function {
+  .hljs-title,
+  &.hljs-title {
+    color: $function;
+  }
+}
+
+.hljs-title {
+  color: $title;
+}
+
+.hljs-attr {
+  color: $attr;
+}
+
+.hljs-meta {
+  color: $meta;
+}
+
+.hljs-meta {
+  .hljs-meta-keyword,
+  &.hljs-meta-keyword {
+    color: $meta-keyword;
+  }
+}
+
+.hljs-meta {
+  .hljs-meta-string,
+  &.hljs-meta-string {
+    color: $meta-string;
+  }
+}
+
+/* ---------------------------- [hljs] data types --------------------------- */
+
+.hljs-regexp {
+  color: $regexp;
+}
+
+.hljs-string {
+  color: $string;
+}
+
+.hljs-number {
+  color: $number;
+}
+
+.hljs-tag {
+  .hljs-attr,
+  &.hljs-attr {
+    color: $tag-attr;
+  }
+}
+
+/* ------------------------------- [lang] html ------------------------------ */
+
+@include lang(html, xml) {
+  color: $html-color;
+
+  .hljs-meta {
+    color: $html-tag;
+  }
+
+  .hljs-tag {
+    color: $html-tag;
+
+    .hljs-name,
+    &.hljs-name {
+      color: $html-tag;
+    }
+
+    .hljs-attr,
+    &.hljs-attr {
+      color: $html-tag-attr;
+      font-style: italic;
+    }
+  }
+}
+
+/* ------------------------------- [lang] css ------------------------------- */
+
+@include lang(css) {
+  .hljs-attribute {
+    color: $css-attr;
+  }
+
+  .hljs-selector-class {
+    color: $css-class;
+  }
+
+  .hljs-selector-id {
+    color: $css-id;
+  }
+
+  .hljs-selector-tag {
+    color: $css-tag;
+  }
+
+  .hljs-selector-pseudo {
+    color: $css-pseudo;
+  }
+
+  .hljs-built_in {
+    color: $css-built_in;
+  }
+
+  .hljs-meta {
+    color: $css-meta;
+  }
+}
+
+/* ------------------------------- [lang] json ------------------------------ */
+
+@include lang(json) {
+  .hljs-attr {
+    color: $json-attr;
+  }
+}
+
+/* ----------------------------- [lang] markdown ---------------------------- */
+
+@include lang(md, markdown) {
+  color: $md-color;
+
+  .hljs-section {
+    color: $md-section;
+  }
+
+  .hljs-quote {
+    color: $md-quote;
+    font-style: italic;
+  }
+
+  .hljs-bullet {
+    color: $md-list-bullet;
+  }
+
+  .hljs-link {
+    color: $md-list-link;
+  }
+
+  .hljs-string {
+    color: $md-list-link-description;
+  }
+}

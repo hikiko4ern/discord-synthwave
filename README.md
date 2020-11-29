@@ -1,13 +1,15 @@
 # Discord SynthWave
 
-This is a SynthWave theme for Discord's code blocks, based on [SynthWave '84 for VS Code](https://github.com/robb0wen/synthwave-vscode).
+This is a SynthWave theme for Discord's code blocks, based on [SynthWave '84 for VS Code](https://github.com/robb0wen/synthwave-vscode) by [Robb Owen](https://github.com/robb0wen).
 
 ## Install
 
-For BetterDiscord, download <a href="https://raw.githack.com/hikiko4ern/discord-synthwave/master/loader/SynthWaveCode.theme.css" target="_blank">this file</a>.
+For [Bandaged BetterDiscord](https://github.com/rauenzi/BetterDiscordApp) download [this file](/dist/loader/SynthWaveCode.theme.css) (_it should be compatible with the [old BetterDiscord](https://github.com/Jiiks/BetterDiscordApp) too_).
 
-If you use EnhancedDiscord, put the contents of <a href="https://raw.githack.com/hikiko4ern/discord-synthwave/master/loader/EnhancedDiscord.css" target="_blank">this file</a> after another imports in your CSS loader's style file.
+If you use [EnhancedDiscord](https://github.com/joe27g/EnhancedDiscord), put the contents of [this file](/dist/loader/EnhancedDiscord.css) after another imports in your CSS Loader's style file.
 
 ## Preview
 
-![SynthWave Preview](preview.png)
+![preview](preview.png)
+
+> Screenshot from [BandagedBD](https://github.com/rauenzi/BetterDiscordApp) with [Nocturnal](https://betterdiscordlibrary.com/themes/Nocturnal) as main theme
