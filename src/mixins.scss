@@ -1,0 +1,23 @@
+@mixin lang($langs...) {
+  $name: content-name($langs);
+
+  %content#{$name} {
+    @content;
+  }
+
+  @each $lng in $langs {
+    .#{$lng} {
+      @extend %content#{$name};
+    }
+  }
+}
+
+@function content-name($langs) {
+  $name: '';
+
+  @each $lang in $langs {
+    $name: '#{$name}#{$lang}';
+  }
+
+  @return $name;
+}
