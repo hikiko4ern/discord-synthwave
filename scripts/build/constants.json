@@ -2,8 +2,7 @@
   "DIST": ["dist"],
   "DIST_LOADERS": ["dist", "loader"],
   "BetterDiscord": {
-    "css": "BetterDiscord.css",
-    "loader": "SynthWaveCode.theme.css"
+    "css": "SynthWaveCode.theme.css"
   },
   "EnhancedDiscord": {
     "css": "EnhancedDiscord.css",

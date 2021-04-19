@@ -8,6 +8,10 @@ const constants = require('./constants.json');
 const FILE = path.resolve('src', 'main.scss');
 const DIST = path.resolve(path.join(...constants.DIST));
 
+const package = require('../../package.json');
+const { author, version } = package;
+const repoUrl = package.repository.url.replace('.git', '');
+
 /* -------------------------------- renderer -------------------------------- */
 
 /**
@@ -43,6 +47,20 @@ const render = (file, data, filename, mutateScss, mutateCss) =>
     }
   );
 
+/* --------------------------------- helpers -------------------------------- */
+
+/**
+ */
+
+/**
+ * @typedef {(data: string) => string} Codemod
+ * @param  {...Codemod} mods
+ * @returns {Codemod}
+ */
+const composeCodemods = (...mods) =>
+  /** @type {Codemod} */
+  data => mods.reduce((str, mod) => mod(str), data);
+
 /* -------------------------------- codemods -------------------------------- */
 
 /** @param {string} replaceValue */
@@ -53,6 +71,13 @@ const prependClassesWith = replaceValue =>
 /** @param {string} data */
 const makeAllRulesImportant = data =>
   data.replace(/((?:(?:[\w\d])-*)*\:[^;}]*)/gm, '$1 !important');
+
+/** @param {string} data */
+const addBetterDiscordMeta = data =>
+  [
+    `//META{"name":"SynthWave '84","description":"Port of Robb Owen's SynthWave'84 theme for VS Code","author":"${author}","version":"${version}","source":"${repoUrl}"}*//`,
+    data
+  ].join('\n');
 
 /* --------------------------------- render --------------------------------- */
 
@@ -70,7 +95,7 @@ render(
   data,
   constants.BetterDiscord.css,
   makeAllRulesImportant,
-  prependClassesWith('.da-markup $1')
+  composeCodemods(prependClassesWith('.da-markup $1'), addBetterDiscordMeta)
 );
 
 // EnhancedDiscord
