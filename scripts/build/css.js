@@ -70,7 +70,7 @@ render(
   data,
   constants.BetterDiscord.css,
   makeAllRulesImportant,
-  prependClassesWith('#app-mount .da-markup $1')
+  prependClassesWith('.da-markup $1')
 );
 
 // EnhancedDiscord
