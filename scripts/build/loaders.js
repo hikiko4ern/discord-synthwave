@@ -15,7 +15,7 @@ const package = require('../../package.json');
 
 const repoUrl = package.repository.url.replace('.git', '');
 
-const { author, version } = package;
+const { version } = package;
 const [, user, repo] = new URL(repoUrl).pathname.replace('.git', '').split('/');
 
 /* --------------------------------- helpers -------------------------------- */
@@ -46,11 +46,6 @@ const createLoader = (filename, data) =>
 
 /* ---------------------------------- data ---------------------------------- */
 
-const BetterDiscord = [
-  `//META{"name":"SynthWave '84","description":"Port of Robb Owen's SynthWave'84 theme for VS Code","author":"${author}","version":"${version}","source":"${repoUrl}"}*//`,
-  importUrl(constants.BetterDiscord.css)
-].join('\n');
-
 const EnhancedDiscord = [
   `/*
   Port of Robb Owen's SynthWave'84 theme for VS Code
@@ -67,9 +62,6 @@ try {
 } catch (error) {
   if (error.code !== 'EEXIST') throw error;
 }
-
-// BetterDiscord
-createLoader(constants.BetterDiscord.loader, BetterDiscord);
 
 // EnhancedDiscord
 createLoader(constants.EnhancedDiscord.loader, EnhancedDiscord);
