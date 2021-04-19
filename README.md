@@ -9,6 +9,8 @@ You may need to enable "Normalize Classes" in the mod settings (or a similar opt
 
 If you use [EnhancedDiscord](https://github.com/joe27g/EnhancedDiscord), put the contents of [this file](/dist/loader/EnhancedDiscord.css) after another imports in your CSS Loader's style file.
 
+> ⚠️ since EnhancedDiscord is no longer supported, the functionality of the theme for it is not guaranteed
+
 ## Preview
 
 ![preview](preview.png)
