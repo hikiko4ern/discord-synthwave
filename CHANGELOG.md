@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.0] - 2021-04-25
+
+### Fixed
+
+- Replace `.da-markup` with the actual class.
+
 ## [1.2.0] - 2021-04-19
 
 ### Changed
@@ -32,7 +38,8 @@
 
 Initial release.
 
-[unreleased]: https://github.com/hikiko4ern/discord-synthwave/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/hikiko4ern/discord-synthwave/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/hikiko4ern/discord-synthwave/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/hikiko4ern/discord-synthwave/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/hikiko4ern/discord-synthwave/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/hikiko4ern/discord-synthwave/releases/tag/v1.0.0
