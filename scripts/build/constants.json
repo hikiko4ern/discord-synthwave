@@ -1,6 +1,9 @@
 {
   "DIST": ["dist"],
   "DIST_LOADERS": ["dist", "loader"],
+  "Discord": {
+    "markupSelector": ".markup-eYLPri"
+  },
   "BetterDiscord": {
     "css": "SynthWaveCode.theme.css"
   },

@@ -85,7 +85,7 @@ render(
   data,
   constants.BetterDiscord.css,
   makeAllRulesImportant,
-  composeCodemods(prependClassesWith('.markup-2BOw-j '), addBetterDiscordMeta)
+  composeCodemods(prependClassesWith(`${constants.Discord.markupSelector} `), addBetterDiscordMeta)
 );
 
 // EnhancedDiscord
