@@ -33,7 +33,7 @@
     "url": "https://github.com/hikiko4ern/discord-synthwave.git"
   },
   "author": "hikiko4ern",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "packageManager": "yarn@3.2.3",
   "private": true
 }
