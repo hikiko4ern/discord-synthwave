@@ -1,3 +1,6 @@
+# Builds
+/dist
+
 # Logs
 *.log
 *.log.*
@@ -28,10 +31,6 @@ npm-debug.log*
 package-lock.json
 
 # Yarn 2 without Zero-installs
+.yarn
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+.yarnrc.yml

@@ -1,48 +1,39 @@
 // @ts-check
 
-const fs = require('fs');
-const URL = require('url').URL;
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'node:path';
+import { URL } from 'node:url';
 
 /* -------------------------------- constants ------------------------------- */
 
-const constants = require('./constants.json');
+import constants from './constants.json' assert { type: 'json' };
 const DIST = path.resolve(path.join(...constants.DIST_LOADERS));
 
 /* --------------------------------- package -------------------------------- */
 
-const package = require('../../package.json');
+import pkg from '../../package.json' assert { type: 'json' };
 
-const repoUrl = package.repository.url.replace('.git', '');
+const repoUrl = pkg.repository.url.replace('.git', '');
 
-const { version } = package;
+const { version } = pkg;
 const [, user, repo] = new URL(repoUrl).pathname.replace('.git', '').split('/');
 
 /* --------------------------------- helpers -------------------------------- */
 
 /** @param {string} name */
 const importUrl = name =>
-  `@import url('https://rawcdn.githack.com/${user}/${repo}/v${version}/${constants.DIST.join(
-    '/'
-  )}/${name}');`;
+  `@import url('https://rawcdn.githack.com/${user}/${repo}/v${version}/${constants.DIST.join('/')}/${name}');`;
 
 /**
  * @param {string} filename
  * @param {string} data
  */
-const createLoader = (filename, data) =>
-  fs.writeFile(
-    path.join(DIST, filename),
-    data.endsWith('\n') ? data : `${data}\n`,
-    { encoding: 'utf-8' },
-    err => {
-      if (err) {
-        throw err;
-      }
-
-      console.info('[loader]', filename, 'done');
-    }
-  );
+const createLoader = (filename, data) => {
+  fs.writeFileSync(path.join(DIST, filename), data.endsWith('\n') ? data : `${data}\n`, {
+    encoding: 'utf-8'
+  });
+  console.info('[loader]', filename, 'done');
+};
 
 /* ---------------------------------- data ---------------------------------- */
 
@@ -57,11 +48,7 @@ const EnhancedDiscord = [
 
 /* ---------------------------------- build --------------------------------- */
 
-try {
-  fs.mkdirSync(DIST, { recursive: true });
-} catch (error) {
-  if (error.code !== 'EEXIST') throw error;
-}
+fs.ensureDirSync(DIST);
 
 // EnhancedDiscord
 createLoader(constants.EnhancedDiscord.loader, EnhancedDiscord);

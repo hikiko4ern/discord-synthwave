@@ -2,4 +2,9 @@
 
 *.png binary
 
-dist/* linguist-generated=true
+# yarn 2
+/.yarn/releases/** binary linguist-generated=true
+/.yarn/plugins/**  binary linguist-generated=true
+
+# dist
+/dist/* linguist-generated=true

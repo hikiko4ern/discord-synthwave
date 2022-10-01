@@ -1,102 +1,92 @@
 // @ts-check
 
-const fs = require('fs');
-const path = require('path');
-const sass = require('sass');
+import fs from 'fs-extra';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import sass from 'sass';
 
-const constants = require('./constants.json');
+import constants from './constants.json' assert { type: 'json' };
 const FILE = path.resolve('src', 'main.scss');
 const DIST = path.resolve(path.join(...constants.DIST));
 
-const package = require('../../package.json');
-const { author, version } = package;
-const repoUrl = package.repository.url.replace('.git', '');
+import pkg from '../../package.json' assert { type: 'json' };
+const { author, version } = pkg;
+const repoUrl = pkg.repository.url.replace('.git', '');
+
+const META = {
+  name: "SynthWave '84",
+  description: "Port of Robb Owen's SynthWave'84 theme for VS Code",
+  author,
+  version,
+  source: repoUrl
+};
+const META_HEADER = '//META' + JSON.stringify(META) + '*//';
 
 /* -------------------------------- renderer -------------------------------- */
 
 /**
- * @param {string} file
+ * @param {URL} url
  * @param {string} data
  * @param {string} filename
- * @param {(data: string) => string} mutateScss
- * @param {(data: string) => string} mutateCss
+ * @param {((data: string) => string)=} mutateScss
+ * @param {((data: string) => string)=} mutateCss
  */
-const render = (file, data, filename, mutateScss, mutateCss) =>
-  sass.render(
-    {
-      file,
-      data: typeof mutateScss === 'function' ? mutateScss(data) : data,
-      sourceMap: false,
-      outputStyle: 'compressed'
-    },
-    (err, res) => {
-      if (err) {
-        throw err;
-      }
+const render = (url, data, filename, mutateScss, mutateCss) => {
+  let { css } = sass.compileString(typeof mutateScss === 'function' ? mutateScss(data) : data, {
+    style: 'compressed',
+    url
+  });
 
-      const css = res.css;
-      const data = typeof mutateCss === 'function' ? mutateCss(css.toString()) : css;
+  css = typeof mutateCss === 'function' ? mutateCss(css) : css;
 
-      fs.writeFile(path.join(DIST, filename), data, { encoding: 'utf-8' }, err => {
-        if (err) {
-          throw err;
-        }
+  fs.writeFileSync(path.join(DIST, filename), css, { encoding: 'utf-8' });
 
-        console.info('[css]', filename, 'done');
-      });
-    }
-  );
+  console.info('[css]', filename, 'done');
+};
 
 /* --------------------------------- helpers -------------------------------- */
-
-/**
- */
 
 /**
  * @typedef {(data: string) => string} Codemod
  * @param  {...Codemod} mods
  * @returns {Codemod}
  */
-const composeCodemods = (...mods) =>
+const composeCodemods =
+  (...mods) =>
   /** @type {Codemod} */
-  data => mods.reduce((str, mod) => mod(str), data);
+  data =>
+    mods.reduce((str, mod) => mod(str), data);
 
 /* -------------------------------- codemods -------------------------------- */
 
 /** @param {string} replaceValue */
-const prependClassesWith = replaceValue =>
+const prependClassesWith =
+  replaceValue =>
   /** @param {string} data */
-  data => data.replace(/([.,#][^\n,{}]+(?:,|{))/gm, replaceValue);
+  data =>
+    data.replace(/([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)/gm, replaceValue + '$1$2');
 
 /** @param {string} data */
-const makeAllRulesImportant = data =>
-  data.replace(/((?:(?:[\w\d])-*)*\:[^;}]*)/gm, '$1 !important');
+const makeAllRulesImportant = data => data.replace(/((?:(?:[\w\d])-*)*\:[^;}]*)/gm, '$1 !important');
 
 /** @param {string} data */
-const addBetterDiscordMeta = data =>
-  [
-    `//META{"name":"SynthWave '84","description":"Port of Robb Owen's SynthWave'84 theme for VS Code","author":"${author}","version":"${version}","source":"${repoUrl}"}*//`,
-    data
-  ].join('\n');
+const addBetterDiscordMeta = data => META_HEADER + '\n' + data;
 
 /* --------------------------------- render --------------------------------- */
 
-try {
-  fs.mkdirSync(DIST, { recursive: true });
-} catch (error) {
-  if (error.code !== 'EEXIST') throw error;
-}
+fs.ensureDirSync(DIST);
 
+const fileUrl = pathToFileURL(FILE);
 const data = fs.readFileSync(FILE, 'utf-8');
 
 // BetterDiscord
 render(
-  FILE,
+  fileUrl,
   data,
   constants.BetterDiscord.css,
   makeAllRulesImportant,
-  composeCodemods(prependClassesWith('.markup-2BOw-j $1'), addBetterDiscordMeta)
+  composeCodemods(prependClassesWith('.markup-2BOw-j '), addBetterDiscordMeta)
 );
 
 // EnhancedDiscord
-render(FILE, data, constants.EnhancedDiscord.css, undefined, prependClassesWith('.theme-dark $1'));
+render(fileUrl, data, constants.EnhancedDiscord.css, undefined, prependClassesWith('.theme-dark '));
