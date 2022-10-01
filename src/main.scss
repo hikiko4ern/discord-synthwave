@@ -60,6 +60,10 @@
   color: $attr;
 }
 
+.hljs-built_in {
+  color: $built_in;
+}
+
 .hljs-meta {
   color: $meta;
 }
@@ -86,6 +90,10 @@
 
 .hljs-string {
   color: $string;
+}
+
+.hljs-subst {
+  color: $subst;
 }
 
 .hljs-number {
@@ -145,10 +153,6 @@
 
   .hljs-selector-pseudo {
     color: $css-pseudo;
-  }
-
-  .hljs-built_in {
-    color: $css-built_in;
   }
 
   .hljs-meta {
